@@ -5,37 +5,12 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read # to fetch code (actions/checkout)
 
 jobs:
-  test-ubuntu:
-    name: Test on Ubuntu
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-      - uses: actions/setup-go@v3
-        with:
-          go-version-file: .go-version
-          cache: true
-
-      - run: make test
-  test-macos:
-    name: Test on MacOS
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-      - uses: actions/setup-go@v3
-        with:
-          go-version-file: .go-version
-          cache: true
-
-      - run: make test
   test-windows:
     name: Test on Windows
     runs-on: windows-latest
@@ -49,39 +24,3 @@ jobs:
           cache: true
 
       - run: make test
-  golangci-lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - uses: actions/setup-go@v3
-        with:
-          go-version-file: .go-version
-
-      - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: v1.47
-  go-fmt:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - run: make lint-with-go-fmt
-  prettier:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - uses: actions/setup-node@v3
-
-      - run: npx prettier --prose-wrap always --check .

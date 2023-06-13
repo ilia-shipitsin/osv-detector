@@ -24,11 +24,13 @@ jobs:
          "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
         shell: cmd
 
+      - name: disable realtime antivirus
+        run: Set-MpPreference -DisableRealtimeMonitoring $true
+        shell: powershell
+
       - name: disable 8dot3
         run: fsutil 8dot3name set 1
         shell: powershell
-
-
     
       - uses: actions/setup-go@v3
         with:

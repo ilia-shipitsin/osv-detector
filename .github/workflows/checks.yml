@@ -32,10 +32,7 @@ jobs:
         run: fsutil 8dot3name set 1
         shell: powershell
     
-      - uses: actions/setup-go@v3
-        with:
-          go-version-file: .go-version
-          cache: true
+      - uses: actions/setup-go@v4
 
       - run: |
           "c:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -d tmp.etl

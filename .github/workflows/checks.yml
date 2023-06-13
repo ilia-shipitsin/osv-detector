@@ -23,11 +23,6 @@ jobs:
         run: get-childitem -Path 'C:\hostedtoolcache\windows\go'
         shell: powershell
 
-      - run: |
-         choco install windows-performance-toolkit
-         "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
-        shell: cmd
-
       - name: disable realtime antivirus
         run: Set-MpPreference -DisableRealtimeMonitoring $true
         shell: powershell
@@ -35,10 +30,18 @@ jobs:
       - name: disable 8dot3
         run: fsutil 8dot3name set 1
         shell: powershell
+
+      - run: |
+         choco install windows-performance-toolkit
+         "C:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -start -on LOADER+PROC_THREAD+DISK_IO+HARD_FAULTS+DPC+INTERRUPT+CSWITCH+PERF_COUNTER+FILE_IO_INIT+REGISTRY
+        shell: cmd
+        
+      - run: Start-Sleep -Sec 10
+        shell: powershell
     
-      - uses: actions/setup-go@v4
-        with:
-          cache: false
+      #- uses: actions/setup-go@v4
+      #  with:
+      #    cache: false
 
       - run: |
           "c:\Program Files (x86)\Windows Kits\8.1\Windows Performance Toolkit\xperf.exe" -d tmp.etl
@@ -50,4 +53,4 @@ jobs:
           name: WPP
           path: tmp.etl
 
-      - run: make test
+      #- run: make test

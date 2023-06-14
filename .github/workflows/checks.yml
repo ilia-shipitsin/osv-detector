@@ -23,9 +23,9 @@ jobs:
         run: get-childitem -Path 'C:\hostedtoolcache\windows\go'
         shell: powershell
 
-      #- name: disable realtime antivirus
-      #  run: Set-MpPreference -DisableRealtimeMonitoring $true
-      #  shell: powershell
+      - name: disable realtime antivirus
+        run: Set-MpPreference -DisableRealtimeMonitoring $true
+        shell: powershell
 
       #- name: disable 8dot3
       #  run: fsutil 8dot3name set 1

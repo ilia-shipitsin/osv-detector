@@ -31,9 +31,9 @@ jobs:
         run: Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'EnableSmartScreen' -Type DWord -Value 0
         shell: powershell
         
-      #- name: disable 8dot3
-      #  run: fsutil 8dot3name set 1
-      #  shell: powershell
+      - name: disable 8dot3
+        run: fsutil 8dot3name set 1
+        shell: powershell
 
       #- run: |
       #   choco install windows-performance-toolkit

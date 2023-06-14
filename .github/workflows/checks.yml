@@ -26,7 +26,11 @@ jobs:
       - name: disable realtime antivirus
         run: Set-MpPreference -DisableRealtimeMonitoring $true
         shell: powershell
-
+        
+      - name: disable smartscreen
+        run: Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\System' -Name 'EnableSmartScreen' -Type DWord -Value 0
+        shell: powershell
+        
       #- name: disable 8dot3
       #  run: fsutil 8dot3name set 1
       #  shell: powershell
